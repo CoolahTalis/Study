@@ -1,84 +1,35 @@
 <?php
 
 require 'includes/header.php';
-require 'includes/navbar.php';
-
-var_dump($_SESSION);
 
 if (!empty($_POST['submit_signup']) && !empty($_POST['email_signup']) && !empty($_POST['password1_signup'])) {
     $pass_su = htmlspecialchars($_POST['password1_signup']);
     $repass_su = htmlspecialchars($_POST['password2_signup']);
     $email_su = htmlspecialchars($_POST['email_signup']);
 
-    $sql = "SELECT *FROM users WHERE email = '{$email_su}'";
-    $res = $conn->query($sql);
-    $count = $res->fetchColumn();
-    // fetchColumn recup le nbre de lignes
-
-    if (!$count) {
-        if ($pass_su === $repass_su) {
-            try {
-                $pass_su = password_hash($pass_su, PASSWORD_DEFAULT);
-                // :email : password pour specifier une valeur ????
-                // $sth -> Statement Handler, Prepare une query des infos ...
-                $sth = $conn->prepare('INSERT INTO users (email, password) VALUES(:email, :password)');
-                $sth->bindValue('email', $email_su);
-                $sth->bindValue('password', $pass_su);
-                $sth->execute();
-                echo 'User registered !';
-            } catch (PDOException $e) {
-                echo 'Error'.$e->getMessage;
-            }
-        } else {
-            echo '<div class="notification is-danger is-light";
-            <button class="delete"></button>
-            Les mots de passe ne concordent pas !
-            </div>';
-        }
-    } elseif ($count > 0) {
-        echo '<div class="notification is-danger is-light";
-            <button class="delete"></button>
-            Cette adresse existe déjà !
-            </div>';
-    }
-}
-if (!empty($_POST['submit_login']) && !empty($_POST['email_login']) && !empty($_POST['password_login'])) {
-    $pass_login = htmlspecialchars($_POST['password_login']);
+    // REGISTER FUNCTION FROM functions.php
+    signUp($email_su, $pass_su, $repass_su);
+} elseif (!empty($_POST['submit_login']) && !empty($_POST['email_login']) && !empty($_POST['password_login'])) {
+    // SWITCH TO STRIP_TAGS ???
     $email_login = htmlspecialchars($_POST['email_login']);
+    $pass_login = htmlspecialchars($_POST['password_login']);
 
-    $sql = "SELECT * FROM users WHERE email = '{$email_login}'";
-    $res = $conn->query($sql);
-    // fetch toutes les données de l'user ..
-    $user = $res->fetch(PDO::FETCH_ASSOC);
-    // if user exist, check pass ..
-    if ($user) {
-        $db_pass = $user['password'];
-        if (password_verify($pass_login, $db_pass)) {
-            $_SESSION['email'] = $user['email'];
-            $_SESSION['id'] = $user['id'];
-            header('Location: index.php');
-        } else {
-            echo '<div class="notification is-danger is-light";
-            <button class="delete"></button>
-            Mot de passe erroné !
-            </div>';
-        }
-    } else {
-        echo '<div class="notification is-danger is-light";
-            <button class="delete"></button>
-            Cet user n\'existe pas !
-            </div>';
+    // LOGIN FUNCTION FROM functions.php
+    connexion($conn, $email_login, $pass_login);
+} else {
+    if (isset($_POST)) {
+        unset($_POST);
     }
 }
 ?>
 
-<div class="container">
+<div class="container" style="padding: 160px 0; background:url('../images/landbg.jpg')">
     <div class="columns">
-        <!-- SIGNIN FORM -->
+        <!-- REGISTER FORM -->
         <div class="column">
             <form
                 action="<?php $_SERVER['REQUEST_URI']; ?>"
-                method="post">
+                method="POST">
                 <div class="field">
                     <label class="label">Email</label>
                     <div class="control has-icons-left has-icons-right">
@@ -135,11 +86,11 @@ if (!empty($_POST['submit_login']) && !empty($_POST['email_login']) && !empty($_
             </form>
         </div>
 
-        <!-- REGISTER FORM -->
+        <!-- SIGNIN FORM -->
         <div class="column">
             <form
                 action="<?php $_SERVER['REQUEST_URI']; ?>"
-                method="post">
+                method="POST">
                 <div class="field">
                     <label class="label">Email</label>
                     <div class="control has-icons-left has-icons-right">
@@ -175,6 +126,7 @@ if (!empty($_POST['submit_login']) && !empty($_POST['email_login']) && !empty($_
             </form>
         </div>
     </div>
-    <?php
+</div>
 
+<?php
 require 'includes/footer.php';

@@ -1,38 +1,22 @@
 <?php
-/*
-    $servername = 'localhost';
-    $username = 'root';
-    $password = '';
-    //On établit la connexion
-    $conn = mysqli_connect($servername, $username, $password);
-    //On vérifie la connexion
-    if (!$conn) {
-        die('Erreur : '.mysqli_connect_error());
-    }
-    echo 'Connexion réussie';
 
-    mysqli_close($conn);
-*/
-
+    // Vars within the PDO method
     $servername = 'localhost';
     $dbname = 'stuliday';
     $username = 'root';
     $password = '';
-    //On essaie de se connecter
+    //Attempt to Reach database
     try {
         $conn = new PDO("mysql:host={$servername};dbname={$dbname}", $username, $password);
-        //On définit le mode d'erreur de PDO sur Exception
+        //Setting PDO ERRMODE on Exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         session_start();
-        echo 'Connexion réussie';
+        // IF attempt fail catch error and display it
     } catch (PDOException $e) {
-        echo 'Erreur : '.$e->getMessage();
+        echo 'Error : '.$e->getMessage();
     }
-
+        //If logout is set, destroy user's session and redirect him on landing page
     if (isset($_GET['logout'])) {
         session_destroy();
         header('Location: index.php');
     }
-?>
-
-
