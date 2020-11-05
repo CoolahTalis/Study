@@ -1,21 +1,21 @@
 <?php
 
-    // Vars within the PDO method
+    // VARS WITHIN PDO METHOD ..
     $servername = 'localhost';
     $dbname = 'stuliday';
     $username = 'root';
     $password = '';
-    //Attempt to Reach database
+    //ATTEMPT TO REACH DATABASE ..
     try {
         $conn = new PDO("mysql:host={$servername};dbname={$dbname}", $username, $password);
-        //Setting PDO ERRMODE on Exception
+        //SETTING PDO ERROR MODE ON EXCEPTION ..
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         session_start();
-        // IF attempt fail catch error and display it
+        // IF ATTEMPT FAIL CATCH ERROR / DISPLAY IT ..
     } catch (PDOException $e) {
         echo 'Error : '.$e->getMessage();
     }
-        //If logout is set, destroy user's session and redirect him on landing page
+        //IF LOGOUT IS SET, DESTROY USER'S SESSION & REDIRECT HIM ON LANDING PAGE ..
     if (isset($_GET['logout'])) {
         session_destroy();
         header('Location: index.php');

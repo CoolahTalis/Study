@@ -43,14 +43,14 @@
                 ?>
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
-                        User name
+                        Stulidayzer
                     </a>
 
                     <div class="navbar-dropdown">
                         <a class="navbar-item" href="profil.php">
                             My Profile
                         </a>
-                        <a class="navbar-item" href="addads.php">
+                        <a class="navbar-item" href="publisher.php">
                             Publish New Ads
                         </a>
                         <hr class="navbar-divider">

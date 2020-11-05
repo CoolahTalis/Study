@@ -1,27 +1,67 @@
+<!-- DON'T FORGET TITTLE AND REMOVE ALL BAD STYLE HERE TO MAKE IT IN SCSS !!! -->
 <?php require 'includes/header.php'; ?>
 
-<!-- <section class="hero is-large" style="background: url('images/landbg.jpg')">
-    <div class=" hero-body">
-        <div class="container">
-            <figure class="image is-128x128">
-                <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-            </figure>
-            <div class="columns">
-                <div class="column is-8-desktop is-offset-2-desktop">
-                    <h1 class="title is-2 is-spaced">
-                        Create function display the name of current user "Hi, "user->fullname" -->
-<!-- Your Profile Page !
-                    </h1>
-                    <h2 class="subtitle is-4">
-                        Fill it and start publish ads sumethin' to stay, or you can even add your own !
-                    </h2>
+<div class="container-fluid" style="padding: 50px 0; background:url('images/addadsbg.jpg'); background-size: cover">
+    <div class="columns">
+        <!-- ADD ADS FORM .. TEST BULMA COL AND SHIT AND UPDATE NAME FOR BDD AND FUNCTIONS, BETTER DESIGN & INPUT NAME !!! -->
+        <div class="is-offset-1 column is-6" style="background: rgba(255, 255, 255, 0.5); border-radius:10px">
+            <form
+                action="<?php $_SERVER['REQUEST_URI']; ?>"
+                method="POST">
+                <!-- USERNAME... -->
+                <div class="field">
+                    <label class="label">Your name</label>
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input is-primary" type="text" placeholder="Type your name .. " value=""
+                            name="fullname" required>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                        <span class="icon is-small is-right">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div> 
-</section> -->
-<section style="background: url('images/profilbg.jpg'); background-size: cover">
-</section>
+                <!-- WHERE THE BOOKING IS LOCATED, CHANGE FOR BETTER LABEL !!! -->
+                <div class="field">
+                    <label class="label">Address</label>
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input is-primary" type="text" placeholder="Type your Address .." value=""
+                            name="address" required>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                        <span class="icon is-small is-right">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    </div>
+                </div>
+                <!-- TEXTAREA INSERTED PREVIOUS CLASSFIELD, NEED TO CHECK THIS !!! -->
+                <div class="field">
+                    <label class="label">About me</label>
+                    <div class="control has-icons-left has-icons-right">
+                        <div class="field">
+                            <div class="control">
+                                <textarea class="textarea is-primary"
+                                    placeholder="Detail here what you 'propose' and your rules" required></textarea>
+                            </div>
+                        </div>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                        <span class="icon is-small is-right">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    </div>
+                </div>
 
-<?php
-require 'includes/footer.php';
+                <div class="field is-grouped">
+                    <div class="control">
+                        <input type="submit" value="Publish !" name="submit_signup" class="button is-primary">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<?php require 'includes/footer.php';

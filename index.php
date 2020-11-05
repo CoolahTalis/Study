@@ -4,6 +4,7 @@
   <div class="hero-body">
     <div class="container">
       <div class="columns">
+        <!-- TRY BULMA STUFF WITH RGBA(#000, 0.7) !!! -->
         <div class="column is-8-desktop is-offset-2-desktop"
           style="background-color: rgba(0, 0, 0, 0.5); border-radius:10px">
           <h1 class="title is-2 is-spaced" style="color : white; font-size: 40px">
