@@ -26,7 +26,8 @@ if (isset($_POST['submit_signup']) && !empty($_POST['email_signup']) && !empty($
 }
 ?>
 <!-- SWITCH W/ CONTAINER-FLUID, TEMPORARY !!! ... -->
-<div class="container-fluid" style="padding: 160px 0; background:url('images/signbg.jpg'); background-size: cover">
+<div class="container-fluid"
+    style="padding: 160px 0; background:url('assets/images/signbg.jpg'); background-size: cover">
     <div class="columns">
         <!-- REGISTER FORM, FIND WAY FOR BETTER DISPLAY OF BOTH !!! -->
         <div class="is-offset-1 column is-5"
@@ -52,9 +53,6 @@ if (isset($_POST['submit_signup']) && !empty($_POST['email_signup']) && !empty($
                     <div class="control has-icons-left has-icons-right">
                         <input class="input is-danger" type="password" placeholder="Choose a password ..."
                             name="password1_signup" required>
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
                         <span class="icon is-small is-right">
                             <i class="fas fa-exclamation-triangle"></i>
                         </span>
@@ -65,9 +63,6 @@ if (isset($_POST['submit_signup']) && !empty($_POST['email_signup']) && !empty($
                     <div class="control has-icons-left has-icons-right">
                         <input class="input is-danger" type="password" placeholder="Re-enter your password ..."
                             name="password2_signup" required>
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
                         <span class="icon is-small is-right">
                             <i class="fas fa-exclamation-triangle"></i>
                         </span>
@@ -78,9 +73,6 @@ if (isset($_POST['submit_signup']) && !empty($_POST['email_signup']) && !empty($
                     <div class="control has-icons-left has-icons-right">
                         <input class="input is-danger" type="text" placeholder="Enter your Full Name ..."
                             name="fullname" required>
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
                         <span class="icon is-small is-right">
                             <i class="fas fa-exclamation-triangle"></i>
                         </span>
@@ -129,9 +121,6 @@ if (isset($_POST['submit_signup']) && !empty($_POST['email_signup']) && !empty($
                     <div class="control has-icons-left has-icons-right">
                         <input class="input is-danger" type="password" placeholder="Choose a password ..."
                             name="password_login" required>
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
                         <span class="icon is-small is-right">
                             <i class="fas fa-exclamation-triangle"></i>
                         </span>
@@ -149,4 +138,4 @@ if (isset($_POST['submit_signup']) && !empty($_POST['email_signup']) && !empty($
 </div>
 
 <?php
-require 'includes/footer.php';
+// require 'includes/footer.php';

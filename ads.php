@@ -1,12 +1,26 @@
-<?php require 'includes/header.php'; ?>
+<?php require 'includes/header.php';
 
-<section style="background: url('images/adsbg.jpg'); background-size: cover">
+$sql = 'SELECT * FROM categories';
+$res = $conn->query($sql);
+$categories = $res->fetchAll();
+
+if (isset($_POST['search_form'])) {
+    $category = intval(strip_tags($_POST['advert_category']));
+    $search_text = strip_tags($_POST['search_text']);
+
+    $sql2 = "SELECT * FROM products WHERE category_id LIKE '%{$category}%' AND adverts_name LIKE '%{$search_text}%'";
+    $res2 = $conn->query($sql2);
+    $search = $res2->fetchAll();
+}
+?>
+
+<section style="background: url('assets/images/adsbg.jpg'); background-size: cover">
     <div class='columns'>
         <div class='container profile'>
 
             <!-- MAYBE USE THIS BLOCK TO GIVE CURRENTUSER THE RIGHT TO GOOGLE SPECIFIK ADS !!! -->
-            <div class='box' style='border-radius: 0px;'>
-                <div class='columns'>
+            <div class='box mt-5' style='border-radius: 5px;'>
+                <div class='row'>
                     <div class='column is-2-tablet user-property-count has-text-centered'>
                         <p class='subtitle is-5' style="color:green">
                             Find Place To Stay
@@ -14,8 +28,20 @@
                     </div>
                     <div class='column is-8'>
                         <p class='control has-addons'>
-                            <input class='input' placeholder='Search your liked properties'
-                                style='width: 100% !important' type='text'>
+                            <select class="form-control  mb-2 mx-2" id="InputCategory" name="advert_category">
+                                <option value="" selected> Filter Search </option>
+                                <?php foreach ($categories as $category) { ?>
+                                <option
+                                    value="<?php echo $category['categories_id']; ?>">
+                                    <?php echo $category['categories_name']; ?>
+                                </option>
+                                <?php } ?>
+                            </select>
+
+                            <?php if (isset($search)) {
+    echo '<a href="products.php" class="btn btn-danger mx-2 mb-2">Reset</a>';
+} ?>
+                            <!-- AJUST BTN POSITION -->
                             <button class='button'>
                                 Search
                             </button>
@@ -24,124 +50,20 @@
                 </div>
             </div>
 
-            <!-- ADS CARDS EXCEPT CURRENTUSER'S !!! -->
             <!-- CARD CONTAINER -->
-            <div class="columns is-mobile" style="margin-bottom:50px">
-                <div class='column is-3-tablet is-6-mobile'>
-                    <div class='card'>
-                        <div class='card-image'>
-                            <figure class='image is-4by3'>
-                                <img alt='' src='http://placehold.it/300x225'>
-                            </figure>
-                        </div>
-                        <div class='card-content'>
-                            <div class='content'>
-                                <span class='tag is-dark subtitle'>Check this ad</span>
-                                <p>Personal Notes on the Property (can be edited and saved automatically by clicking in
-                                    and
-                                    clicking out of text area) - these are unique to the user - they will show up as
-                                    part of
-                                    a saved listings' info here..</p>
-                            </div>
-                        </div>
-
-                        <!-- FIND UTILITY FOR THIS CARD FOOTER !!! -->
-                        <footer class='card-footer'>
-                            <a class='card-footer-item'>Compare</a>
-                            <a class='card-footer-item'>Share</a>
-                            <a class='card-footer-item'>Delete</a>
-                        </footer>
-                    </div>
-                    <br>
-                </div>
-
-                <div class='column is-3-tablet is-6-mobile'>
-                    <div class='card'>
-                        <div class='card-image'>
-                            <figure class='image is-4by3'>
-                                <img alt='' src='http://placehold.it/300x225'>
-                            </figure>
-                        </div>
-                        <div class='card-content'>
-                            <div class='content'>
-                                <span class='tag is-dark subtitle'>Check this ad</span>
-                                <p>Personal Notes on the Property (can be edited and saved automatically by clicking in
-                                    and
-                                    clicking out of text area) - these are unique to the user - they will show up as
-                                    part of
-                                    a saved listings' info here..</p>
-                            </div>
-                        </div>
-
-                        <!-- FIND UTILITY FOR THIS CARD FOOTER !!! -->
-                        <footer class='card-footer'>
-                            <a class='card-footer-item'>Compare</a>
-                            <a class='card-footer-item'>Share</a>
-                            <a class='card-footer-item'>Delete</a>
-                        </footer>
-                    </div>
-                    <br>
-                </div>
-
-                <div class='column is-3-tablet is-6-mobile'>
-                    <div class='card'>
-                        <div class='card-image'>
-                            <figure class='image is-4by3'>
-                                <img alt='' src='http://placehold.it/300x225'>
-                            </figure>
-                        </div>
-                        <div class='card-content'>
-                            <div class='content'>
-                                <span class='tag is-dark subtitle'>Check this ad</span>
-                                <p>Personal Notes on the Property (can be edited and saved automatically by clicking in
-                                    and
-                                    clicking out of text area) - these are unique to the user - they will show up as
-                                    part of
-                                    a saved listings' info here..</p>
-                            </div>
-                        </div>
-
-                        <!-- FIND UTILITY FOR THIS CARD FOOTER !!! -->
-                        <footer class='card-footer'>
-                            <a class='card-footer-item'>Compare</a>
-                            <a class='card-footer-item'>Share</a>
-                            <a class='card-footer-item'>Delete</a>
-                        </footer>
-                    </div>
-                    <br>
-                </div>
-
-                <div class='column is-3-tablet is-6-mobile'>
-                    <div class='card'>
-                        <div class='card-image'>
-                            <figure class='image is-4by3'>
-                                <img alt='' src='http://placehold.it/300x225'>
-                            </figure>
-                        </div>
-                        <div class='card-content'>
-                            <div class='content'>
-                                <span class='tag is-dark subtitle'>Check this ad</span>
-                                <p>Personal Notes on the Property (can be edited and saved automatically by clicking in
-                                    and
-                                    clicking out of text area) - these are unique to the user - they will show up as
-                                    part of
-                                    a saved listings' info here..</p>
-                            </div>
-                        </div>
-
-                        <!-- FIND UTILITY FOR THIS CARD FOOTER !!! -->
-                        <footer class='card-footer'>
-                            <a class='card-footer-item'>Compare</a>
-                            <a class='card-footer-item'>Share</a>
-                            <a class='card-footer-item'>Delete</a>
-                        </footer>
-                    </div>
-                    <br>
-                </div>
-
+            <div class="columns is-mobile" style="margin-bottom:100px">
+                <?php
+                        if (isset($search)) {
+                            foreach ($search as $advert) {?>
+                <br>
+                <?php  }
+                        } else {
+                            displayAds();
+                        } ?>
             </div>
         </div>
     </div>
 </section>
 
-<?php require 'includes/footer.php';
+<?php
+// require 'includes/footer.php';

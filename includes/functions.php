@@ -88,38 +88,50 @@ function displayAds()
 {
     global $conn;
 
-    $sth = $conn->prepare('SELECT a.*,c.categories_name,u.fullname FROM adverts AS a LEFT JOIN categories AS c ON a.category_id = c.categories_id LEFT JOIN users AS u ON a.author = u.id');
+    $sth = $conn->prepare('SELECT a.*,c.categories_name,u.fullname FROM adverts AS a LEFT JOIN categories AS c ON a.category_id = c.categories_id LEFT JOIN users AS u ON a.author_id = u.id');
     $sth->execute();
 
     $adverts = $sth->fetchAll(PDO::FETCH_ASSOC);
     foreach ($adverts as $advert) {
         ?>
-<tr>
-    <th scope="row"><?php echo $advert['adverts_id']; ?>
-    </th>
-    <td><?php echo $advert['adverts_name']; ?>
-    </td>
-    <td><?php echo $advert['description']; ?>
-    </td>
-    <td><?php echo $advert['city']; ?>
-    </td>
-    <td><?php echo $advert['price']; ?> €
-    </td>
-    <td><?php echo $advert['categories_name']; ?>
-    </td>
-    <td><?php echo $advert['fullname']; ?>
-    </td>
-    <td> <a
-            href="ads.php?id=<?php echo $advert['adverts_id']; ?>">Dislpay
-            Places to Stay</a>
-    </td>
-</tr>
+
+<div class='card mx-5 mt-5'>
+    <h3 class="card-title"> <?php echo $advert['ad_name']; ?>
+    </h3>
+    <!-- DONT FORGET IMG, INCOMING IN DATABASE!!! -->
+    <div class='card-image'>
+        <figure class='image is-4by3'>
+            <img alt='' src='http://placehold.it/300x225'>
+        </figure>
+    </div>
+    <div class='card-content'>
+        <div class='content'>
+            <span>
+                <a href="advert.php?id=<?php echo $advert['ad_id']; ?>"
+                    class="card-link tag is-dark subtitle">Check this ad</a>
+            </span>
+        </div>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><?php echo $advert['price']; ?>
+            €</li>
+        <li class="list-group-item"><?php echo $advert['address']; ?>
+        </li>
+    </ul>
+    <!-- CUSTOMER BTN MODE  -->
+    <footer class='card-footer'>
+        <a class='card-footer-item'>Contact</a>
+        <a class='card-footer-item'>Share</a>
+        <a class='card-footer-item'>...</a>
+    </footer>
+</div>
+
 <?php
     }
 }
 
 // ADD ADVERTS FUNCTION ..  AFTER BETTER UNDERSTANDING INSERT IMG .......
-function addAdverts($title, $content, $address, $price, $author, $category)
+function addAdverts($ad_name, $content, $address, $price, $author_id, $category)
 {
     global $conn;
     // CHECK PRICE (MUST BE INT & BELOW 1m €/$) ..
@@ -127,8 +139,8 @@ function addAdverts($title, $content, $address, $price, $author, $category)
         // USE OF TRY/CATCH TO CAPTURE SQL/PDO ERRORS ..
         try {
             // CREATE QUERY W/ ALL FORMS FIELDS SPECIFIED .. NOT SURE ........
-            $sth = $conn->prepare('INSERT INTO adverts (title, content, address, price, author, category_id) VALUES (:title, :content, :address, :price, :author,:category_id)');
-            $sth->bindValue(':title', $title, PDO::PARAM_STR);
+            $sth = $conn->prepare('INSERT INTO adverts (ad_name, content, address, price, author, category_id) VALUES (:title, :content, :address, :price, :author,:category_id)');
+            $sth->bindValue(':ad_name', $ad_name, PDO::PARAM_STR);
             $sth->bindValue(':content', $content, PDO::PARAM_STR);
             $sth->bindValue(':adress', $address, PDO::PARAM_STR);
             $sth->bindValue(':price', $price, PDO::PARAM_INT);
@@ -149,7 +161,7 @@ function addAdverts($title, $content, $address, $price, $author, $category)
 }
 
 // EDIT AD FUNCTION ..
-function editAds($title, $content, $address, $price, $author, $category, $id)
+function editAds($ad_name, $content, $address, $price, $author, $category, $id)
 {
     global $conn;
     // CHECK PRICE (MUST BE INT & BELOW 1m €/$) ..
@@ -158,7 +170,7 @@ function editAds($title, $content, $address, $price, $author, $category, $id)
         try {
             // CREATE QUERY W/ ALL FORMS FIELDS SPECIFIED .. NOT SURE ........
             $sth = $conn->prepare('UPDATE adverts SET title = :title, content = :content, address = :address , price = :price, category_id=:category_id WHERE author = :author AND ad_id = :ad_id');
-            $sth->bindValue(':title', $title);
+            $sth->bindValue(':ad_name', $ad_name);
             $sth->bindValue(':content', $content);
             $sth->bindValue(':price', $price, );
             $sth->bindValue(':address', $address);
@@ -176,4 +188,9 @@ function editAds($title, $content, $address, $price, $author, $category, $id)
             echo 'Error: '.$e->getMessage();
         }
     }
+}
+
+function displayAd()
+{
+    global $conn;
 }

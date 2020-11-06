@@ -1,7 +1,6 @@
 <!-- PROCESS PAGE VIA FORMS/POST ONLY, CHECK IF FUNCTION DO HIS JOB, NOT SURE ...... CHECK !!! -->
 <?php
 
-    $title = 'Processing - Stuliday';
     require 'includes/header.php';
 
     // DENIED ACCESS TO PROCESS.PHP METHOD POST, CHECK ...
@@ -10,35 +9,36 @@
     // ELSEIF HANDLE FORM & ADS CREATION ..
     } elseif (isset($_POST['advert_submit'])) {
         // CHECK BACK-END FILL FORM FROM PUBLISHER.PHP
-        if (!empty($_POST['title']) && !empty($_POST['advert_content']) && !empty($_POST['advert_address']) && !empty($_POST['advert_price']) && !empty(['advert_author']) && !empty(['advert_category'])) {
+        if (!empty($_POST['ad_name']) && !empty($_POST['advert_content']) && !empty($_POST['advert_address']) && !empty($_POST['advert_price']) && !empty(['advert_category'])) {
             // DEFINE VARIABLE
-            $title = strip_tags($_POST['advert_title']);
+            $ad_name = strip_tags($_POST['advert_ad_name']);
             $content = strip_tags($_POST['advert_content']);
-            $price = intval(strip_tags($_POST['advert_price']));
             $address = strip_tags($_POST['advert_address']);
+            $price = intval(strip_tags($_POST['advert_price']));
             $category = strip_tags($_POST['advert_category']);
             // ASSIGN VARIABLE USER_ID VIA TOKEN $_SESSION
-            $author = $_SESSION['id'];
+            $author_id = $_SESSION['id'];
             // INIT FUNCTION ADD AD
-            addAdverts($title, $content, $address, $price, $author, $category);
+            addAdverts($ad_name, $content, $address, $price, $category, $author_id);
         }
 
         // ELSEIF FOR FORM EDITION ..
     } elseif (isset($_POST['advert_edit'])) {
         // VERIF BACK-END  FORM EDITION
-        if (!empty($_POST['advert_title']) && !empty($_POST['advert_content']) && !empty($_POST['advert_price']) && !empty($_POST['advert_address']) && !empty(['advert_category'])) {
+        if (!empty($_POST['ad_name']) && !empty($_POST['advert_content']) && !empty($_POST['advert_address']) && !empty($_POST['advert_price']) && !empty(['advert_category'])) {
             // DEFINE VARIABLES
-            $title = strip_tags($_POST['advert_title']);
+            $ad_name = strip_tags($_POST['advert_ad_name']);
             $content = strip_tags($_POST['advert_content']);
-            $price = intval(strip_tags($_POST['advert_price']));
             $address = strip_tags($_POST['advert_address']);
+            $price = intval(strip_tags($_POST['advert_price']));
             $category = strip_tags($_POST['advert_category']);
             // ASSIGN VARIABLE USER_ID VIA TOKEN $_SESSION
-            $author = $_SESSION['id'];
+            $id = strip_tags($_POST['advert_id']);
+            $author_id = $_SESSION['id'];
 
             // EDIT AD FUNCTION
-            editAds($name, $description, $price, $city, $category, $id, $user_id);
+            editAds($ad_name, $description, $price, $city, $category, $id, $author_id);
         }
     }
 
-    require 'includes/footer.php';
+    // require 'includes/footer.php';
