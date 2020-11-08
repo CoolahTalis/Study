@@ -1,6 +1,6 @@
 <?php require 'includes/header.php'; ?>
 
-<section class="hero is-large" style="background: url('images/land2bg.jpg'); no-repeat;  background-size: cover">
+<section class="hero is-large" style="background: url('assets/images/land2bg.jpg'); no-repeat;  background-size: cover">
   <div class="hero-body">
     <div class="container">
       <div class="columns">

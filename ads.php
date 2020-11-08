@@ -8,7 +8,7 @@ if (isset($_POST['search_form'])) {
     $category = intval(strip_tags($_POST['advert_category']));
     $search_text = strip_tags($_POST['search_text']);
 
-    $sql2 = "SELECT * FROM products WHERE category_id LIKE '%{$category}%' AND adverts_name LIKE '%{$search_text}%'";
+    $sql2 = "SELECT * FROM adverts WHERE category_id LIKE '%{$category}%' AND ad_name LIKE '%{$search_text}%'";
     $res2 = $conn->query($sql2);
     $search = $res2->fetchAll();
 }
@@ -19,7 +19,7 @@ if (isset($_POST['search_form'])) {
         <div class='container profile'>
 
             <!-- MAYBE USE THIS BLOCK TO GIVE CURRENTUSER THE RIGHT TO GOOGLE SPECIFIK ADS !!! -->
-            <div class='box mt-5' style='border-radius: 5px;'>
+            <div class="box mt-5 has-background-primary" style="border-radius: 5px">
                 <div class='row'>
                     <div class='column is-2-tablet user-property-count has-text-centered'>
                         <p class='subtitle is-5' style="color:green">
@@ -50,8 +50,8 @@ if (isset($_POST['search_form'])) {
                 </div>
             </div>
 
-            <!-- CARD CONTAINER -->
-            <div class="columns is-mobile" style="margin-bottom:100px">
+            <!-- CARD CONTAINER WACK CODE TO CHECK !!! -->
+            <div class="columns is-mutltiline is-centered" style="margin-bottom:100p; flex-wrap: wrap">
                 <?php
                         if (isset($search)) {
                             foreach ($search as $advert) {?>

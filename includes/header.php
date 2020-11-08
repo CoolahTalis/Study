@@ -19,7 +19,7 @@
     <nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: grey;">
         <div class="navbar-brand">
             <a class="navbar-item" href="index.php">
-                <img src="images/stuliday-logo-dark.png" width=50 height=50>
+                <img src="assets/images/stuliday-logo-dark.png" width=50 height=50>
             </a>
 
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
