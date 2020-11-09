@@ -69,9 +69,9 @@ if (isset($_POST['submit_signup']) && !empty($_POST['email_signup']) && !empty($
                     </div>
                 </div>
                 <div class="field">
-                    <label class="label">Full Name</label>
+                    <label class="label">Last Name, First Name</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input class="input is-danger" type="text" placeholder="Enter your Full Name ..."
+                        <input class="input is-danger" type="text" placeholder="Enter your last and first name ..."
                             name="fullname" required>
                         <span class="icon is-small is-right">
                             <i class="fas fa-exclamation-triangle"></i>

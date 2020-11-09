@@ -12,9 +12,11 @@ if (isset($_GET['s'])) {
 
 ?>
 
+<!-- FAIL SCRIPT GO BACK TO LESSONS .................... -->
 
-<div class="container-fluid"
-    style="padding: 165px ; background:url('assets/images/addadsbg.jpg'); background-size: cover">
+
+
+<div class="container-fluid" style="padding: 165px ; background:url('assets/images/appt1.jpg'); background-size: cover">
     <div class="columns">
 
         <!-- ADD ADS FORM .. TEST BULMA COL AND SHIT AND UPDATE NAME FOR BDD AND FUNCTIONS, BETTER DESIGN & INPUT NAME !!! -->
@@ -22,79 +24,52 @@ if (isset($_GET['s'])) {
             <form action="process.php" method="POST">
                 <!-- USERNAME MIGHT INTERFER WITH BDD ??? CHECK THIS !!! -->
                 <div class="field">
-                    <label class="label"> Name</label>
+                    <label class="label">Full Name</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input class="input is-primary" type="text" placeholder="Type your name .. " value="" name=""
-                            required>
+                        <input class="input is-primary" type="text" placeholder="Type your last and first name .. "
+                            value="<?php echo $user['fullname']; ?>"
+                            name="fullname" required>
                         <span class="icon is-small is-right">
                             <i class="fas fa-exclamation-triangle"></i>
                         </span>
                     </div>
                 </div>
                 <div class="field">
-                    <label class="label"> First Name</label>
+                    <label class="label">Contact Me</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input class="input is-primary" type="text" placeholder="Type your first name .. " value=""
-                            name="" required>
+                        <input class="input is-primary" type="mail" placeholder=""
+                            value="<?php echo $user['email']; ?>"
+                            name="email" required>
                         <span class="icon is-small is-right">
                             <i class="fas fa-exclamation-triangle"></i>
                         </span>
                     </div>
                 </div>
-                <!-- CHECK THIS ONE !!! -->
-                <div class="field">
-                    <label class="label">Address</label>
-                    <div class="control has-icons-left has-icons-right">
-                        <input class="input is-primary" type="text" placeholder="Type your Address .." value="" name=""
-                            required>
-                        <span class="icon is-small is-right">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </span>
-                    </div>
-                </div>
-                <!-- TEXTAREA INSERTED PREVIOUS CLASSFIELD, NEED TO CHECK THIS !!! -->
-                <div class="field">
-                    <label class="label">About me</label>
-                    <div class="control has-icons-left has-icons-right">
-                        <div class="field">
-                            <div class="control">
-                                <textarea class="textarea is-primary"
-                                    placeholder="Detail here what your Booking information and your rules"
-                                    required></textarea>
-                            </div>
-                        </div>
-                        <span class="icon is-small is-right">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </span>
-                    </div>
-                </div>
-                <!-- IN PROCESS DONT FORGET PERSISTENCE !!!!! -->
+                <!-- TRY TO ADD, "ABOUT ME" ETC !!!!! -->
                 <div class="field is-grouped">
                     <div class="control">
-                        <input type="submit" value="Save Changes" name="submit_signup" class="button is-primary">
+                        <button type="submit" name="submit_signup" class="button is-primary">Save changes</button>
                     </div>
                 </div>
             </form>
         </div>
         <div class="col-2">
-            <button type="button" class="button is-primary" id="btn-ads" data-toggle="modal"
-                data-target="#exampleModal">
+            <button type="button" class="button is-primary" id="openModal">
                 Check My Ads
             </button>
         </div>
     </div>
 
     <!-- DISPLAY ADS FROM CURRENTUSER -->
-    <div class="modal " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true" style="background: rgba(255, 255, 255, 0.5)">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content has-background-grey">
                 <div class="modal-header">
-                    <h2 class="modal-title" id="exampleModalLabel" style="font-weight:900; color:white">Your Published
+                    <h2 class="modal-title" id="exampleModalLabel" style="font-weight:900; color:white">Your
+                        Published
                         Ads (You can Edit, Delete them)</h2>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="button is-primary close" data-dismiss="modal">Close</button>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
@@ -105,11 +80,13 @@ if (isset($_GET['s'])) {
                 </div>
                 <!-- PUT A PAGE UP BTN NEXT TO CLOSE BTN IF PLENTY ADS (JQUERY) !!! -->
                 <div class="modal-footer">
-                    <button type="button" class="button is-primary" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="button is-primary close mx-3" data-dismiss="modal">Close</button> -->
+                    <a href="#exampleModalLabel"><i class="fas fa-chevron-circle-up" style="font-size:1.8rem"></i></a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <?php
-// require 'includes/footer.php';
+
+require 'includes/footer.php';

@@ -1,7 +1,8 @@
 <?php require 'includes/header.php';
 
-// ISSUE FIXED W/ BASIC QUERY, TRY TO FIX LATER !!!
-$sql1 = 'SELECT * FROM adverts';
+// ISSUE FIXED W/ BASIC QUERY, TRY TO FIX LATER WITH BETTER QUERY !!!
+$id = $_GET['id'];
+$sql1 = "SELECT adverts.*,categories.categories_name FROM adverts INNER JOIN categories ON adverts.category_id = categories.categories_id WHERE ad_id = {$id}";
 $sql2 = 'SELECT * FROM categories';
 $res1 = $conn->query($sql1);
 $advert = $res1->fetch(PDO::FETCH_ASSOC);
@@ -15,8 +16,8 @@ $categories = $res2->fetchAll();
     style="padding: 50px 0; background:url('assets/images/addadsbg.jpg'); background-size: cover">
     <div class="columns">
         <!-- ADD ADS FORM .. TEST BULMA COL AND SHIT AND UPDATE NAME FOR BDD AND FUNCTIONS !!! -->
-        <div class="is-offset-1 column is-6 mb-5">
-            <form action="process.php" method="POST" style="background: rgba(255, 255, 255, 0.5); border-radius:10px">
+        <div class="is-offset-1 column is-6 mb-5" style="background: rgba(255, 255, 255, 0.5); border-radius:10px">
+            <form action="process.php" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="label" for=InputName> Your Booking Title</label>
                     <div class="control has-icons-left has-icons-right">
@@ -37,7 +38,6 @@ $categories = $res2->fetchAll();
                         <div class="field">
                             <div class="control">
                                 <textarea class="textarea is-danger" id="InputContent" name="advert_content"
-                                    id="InputDescription"
                                     value="<?php echo $advert['content']; ?>"
                                     required></textarea>
                             </div>
@@ -103,6 +103,9 @@ $categories = $res2->fetchAll();
                 <!-- SUBMIT FORM BTN -->
                 <div class="field is-grouped">
                     <div class="control mt-3">
+                        <input type="hidden"
+                            value="<?php echo $id; ?>"
+                            name="advert_id">
                         <input type="submit" value="Save changes" name="advert_edit" class="button is-primary">
                     </div>
                 </div>
@@ -111,4 +114,5 @@ $categories = $res2->fetchAll();
     </div>
 </div>
 <?php
-// require 'includes/footer.php';
+
+require 'includes/footer.php';

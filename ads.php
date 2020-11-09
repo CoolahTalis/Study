@@ -51,7 +51,7 @@ if (isset($_POST['search_form'])) {
             </div>
 
             <!-- CARD CONTAINER WACK CODE TO CHECK !!! -->
-            <div class="columns is-mutltiline is-centered" style="margin-bottom:100p; flex-wrap: wrap">
+            <div class="columns is-mutltiline is-centered" style="margin-bottom:100p; flex-wrap: wrap;">
                 <?php
                         if (isset($search)) {
                             foreach ($search as $advert) {?>
@@ -66,4 +66,5 @@ if (isset($_POST['search_form'])) {
 </section>
 
 <?php
-// require 'includes/footer.php';
+
+require 'includes/footer.php';

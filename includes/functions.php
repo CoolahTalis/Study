@@ -104,13 +104,14 @@ function displayAds()
     <div class='card-image'>
         <figure class='image is-4by3'>
             <img alt=''
-                src='<?php echo $advert['images']; ?>'>
+                src=' imgupload/<?php echo $advert['images']; ?>'>
         </figure>
     </div>
     <ul class="list-group list-group-flush">
         <li class="list-group-item"><span style="font-weight:700">Category : </span> <?php echo $advert['categories_name']; ?>
         </li>
-        <li class="list-group-item"><span style="font-weight:700">Description : </span> <?php echo $advert['content']; ?>
+        <li class="list-group-item"><span style="font-weight:700">Description : </span>
+            <?php echo $advert['content']; ?>
         </li>
         <li class="list-group-item"><span style="font-weight:700">Price : </span> <?php echo $advert['price']; ?>
             €</li>
@@ -118,7 +119,7 @@ function displayAds()
         </li>
     </ul>
     <!-- CUSTOMER BTN MODE  -->
-    <footer class='card-footer'>
+    <footer class='card-footer has-background-primary'>
         <a href="ad.php?id=<?php echo $advert['ad_id']; ?>"
             class="card-link tag is-dark subtitle mt-3" style="font-size: 1.1rem">Check this ad</a>
 
@@ -138,16 +139,36 @@ function addAds($name, $content, $address, $price, $img, $author, $category)
     if (is_int($price) && $price > 0 && $price < 1000000) {
         // USE OF TRY/CATCH TO CAPTURE SQL/PDO ERRORS ..
         try {
-            // CREATE QUERY W/ ALL FORMS FIELDS SPECIFIED .. NOT SURE ........
+            // CREATE QUERY W/ ALL FORMS FIELDS SPECIFIED .. PUT BACK IMG NULL WHEN ISSUE FIXED !!!
             $sth = $conn->prepare('INSERT INTO adverts (ad_name, content, address, price, images, author_id, category_id) VALUES (:ad_name, :content, :address, :price, :images, :author_id,:category_id)');
             $sth->bindValue(':ad_name', $name, PDO::PARAM_STR);
             $sth->bindValue(':content', $content, PDO::PARAM_STR);
             $sth->bindValue(':address', $address, PDO::PARAM_STR);
             $sth->bindValue(':price', $price, PDO::PARAM_INT);
-            $sth->bindValue(':images', $img, PDO::PARAM_STR);
             $sth->bindValue(':author_id', $author, PDO::PARAM_INT);
             $sth->bindValue(':category_id', $category, PDO::PARAM_INT);
 
+            // // HANDLE IMG UPLOAD .. DONT FORGET TO ADD SIZE LIMIT(CANNOT PUT ISSET() IF USING [SIZE]) !!!, EXTENSION ETC.. !!!
+            if (isset($_FILES['advert_images'])) {
+                $file = $_FILES['advert_images'];
+                if ($file['size'] <= 1000000) {
+                    $valid_ext = ['jpg', 'jpeg', 'gif', 'png'];
+                    $check_ext = strtolower(substr(strrchr($file['name'], '.'), 1));
+                    if (in_array($check_ext, $valid_ext)) {
+                        $dbname = uniqid().'_'.$file['name'];
+                        $upload_dir = 'imgupload/';
+                        $upload_name = $upload_dir.$dbname;
+                        $move_result = move_uploaded_file($file['tmp_name'], $upload_name);
+                        $img = $dbname;
+                        echo '<div class="alert alert-success mt-2" role="alert" > You have Succesfully Upload your Image !</div>';
+                    } else {
+                        // TEMP SPEECH FIND BETTER !!!
+                        $img = '';
+                        echo '<div class="alert alert-success mt-2" role="alert" > Upload Image Fail, please check the extension / size !</div>';
+                    }
+                }
+            }
+            $sth->bindValue(':images', $img, PDO::PARAM_STR);
             // DISPLAY MSG IF SUCCESS ..
             if ($sth->execute()) {
                 // FIND BETTER SPEECH !!!
@@ -173,7 +194,7 @@ function editAds($name, $content, $address, $price, $author, $category, $id)
             $sth = $conn->prepare('UPDATE adverts SET ad_name = :ad_name, content = :content, address = :address , price = :price, category_id=:category_id WHERE author_id = :author_id AND ad_id = :ad_id');
             $sth->bindValue(':ad_name', $name);
             $sth->bindValue(':content', $content);
-            $sth->bindValue(':price', $price, );
+            $sth->bindValue(':price', $price);
             $sth->bindValue(':address', $address);
             $sth->bindValue(':author_id', $author);
             $sth->bindValue(':category_id', $category);
@@ -209,16 +230,17 @@ function displayAd($id)
     <div class='card-image'>
         <figure class='image is-4by3'>
             <img alt=''
-                src='<?php echo $advert['images']; ?>'>
+                src='imgupload/<?php echo $advert['images']; ?>'>
         </figure>
     </div>
     <ul class="list-group list-group-flush">
-        <li class="list-group-item"><?php echo $advert['content']; ?>
+        <li class="list-group-item"><span style="font-weight:700">Category : </span> <?php echo $advert['categories_name']; ?>
         </li>
-
-        <li class="list-group-item"><?php echo $advert['price']; ?>
+        <li class="list-group-item"><span style="font-weight:700">Description : </span> <?php echo $advert['content']; ?>
+        </li>
+        <li class="list-group-item"><span style="font-weight:700">Price : </span> <?php echo $advert['price']; ?>
             €</li>
-        <li class="list-group-item"><?php echo $advert['address']; ?>
+        <li class="list-group-item"><span style="font-weight:700">Localization : </span> <?php echo $advert['address']; ?>
         </li>
     </ul>
     <!-- CUSTOMER BTN MODE  -->
@@ -250,7 +272,7 @@ function displayAdsByUser($author_id)
     <div class='card-image'>
         <figure class='image is-4by3'>
             <img alt=''
-                src='<?php echo $advert['images']; ?>'>
+                src='imgupload/<?php echo $advert['images']; ?>'>
         </figure>
     </div>
     <ul class="list-group list-group-flush">
@@ -267,9 +289,13 @@ function displayAdsByUser($author_id)
     <footer class="card-footer has-background-primary">
         <a href="ad.php?id=<?php echo $advert['ad_id']; ?>"
             class="card-link tag is-dark subtitle mt-3" style="font-size: 1.1rem">Check this ad</a>
-        <a href="editAds.php?id=" class="card-link tag is-dark subtitle mt-3" style="font-size: 1.1rem">Edit this
+        <a href="editAds.php?id=<?php echo $advert['ad_id']; ?>"
+            class="card-link tag is-dark subtitle mt-3" style="font-size: 1.1rem">Edit this
             ad</a>
         <form action="process.php" method="post" class="mx-5 mt-3">
+            <input type="hidden" name="advert_id"
+                value="<?php echo $advert['ad_id']; ?>"
+                id="">
             <input type="submit" name="advert_delete" class="fa btn btn-outline-danger" value="&#xf2ed;"></input>
         </form>
     </footer>
@@ -285,7 +311,7 @@ function deleteAds($ad, $author)
     global $conn;
 
     try {
-        $sth = $conn->prepare('DELETE FROM adverts WHERE ad_id = :ad_id AND author_id =:author_id');
+        $sth = $conn->prepare('DELETE FROM adverts WHERE ad_id = :ad_id AND author_id = :author_id');
         $sth->bindValue(':ad_id', $ad);
         $sth->bindValue(':author_id', $author);
         if ($sth->execute()) {
@@ -295,32 +321,3 @@ function deleteAds($ad, $author)
         echo 'Error: '.$e->getMessage();
     }
 }
-// function uploadImg()
-// {
-//     global $conn;
-
-    // HANDLE IMG UPLOAD .. DONT FORGET TO ADD SIZE LIMIT, EXTENSION ETC.. !!!
-    // if (!empty($_FILES['advert_images']['size'] <= 10000000)) {
-    //     $uploadImg = pathinfo($_FILES['advert_images']);
-    //     $extensionImg = $uploadImg['extension'];
-    //     $extensionAllowed = ['jpg', 'jpeg', 'png'];
-
-    //     if (in_array($extensionImg, $extensionAllowed)) {
-    //         uploadImg($_FILES['advert_images']);
-    //         echo '<div class="alert alert-success mt-2" role="alert" > You have Succesfully Upload your Image !</div>';
-    //     } else {
-    //         // TEMP SPEECH FIND BETTER !!!
-    //         echo '<div class="alert alert-success mt-2" role="alert" > Upload Image Fail, please check the exntesion / size !</div>';
-    //     }
-    // }
-
-    // $target_dir = 'imgupload/';
-    // $target_file = $target_dir.basename($_FILES['images']);
-    // $extension = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-    // // CHECK IMG INTEGRITY
-    // if (isset($_POST['submit'])) {
-    //     echo 'Upload Success'.$check['mime'].'.';
-    // } else {
-    //     echo 'Upload Fail.';
-    // }
-// }

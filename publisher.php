@@ -13,7 +13,7 @@ $categories = $res->fetchAll();
     <div class="columns">
         <!-- ADD ADS FORM .. TEST BULMA COL AND SHIT AND UPDATE NAME FOR BDD AND FUNCTIONS !!! -->
         <div class="is-offset-1 column is-6 mb-5" style="background: rgba(255, 255, 255, 0.5); border-radius:10px">
-            <form action="process.php" method="POST">
+            <form action="process.php" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="label" for=InputName> Your Booking Title</label>
                     <div class="control has-icons-left has-icons-right">
@@ -62,7 +62,8 @@ $categories = $res->fetchAll();
                 <div class="form-group">
                     <label class="label" for="InputAddress">Localization</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input class="input is-danger" type="text" placeholder="Type your Booking Address"
+                        <input class="input is-danger" type="text"
+                            placeholder="Type Booking Address (eg. '34 Beat Street, Apt. 2A, 3904 NomansLand, UK')"
                             name="advert_address" id="InputAddress" required>
                         <span class="icon is-small is-right">
                             <i class="fas fa-exclamation-triangle"></i>
@@ -96,4 +97,5 @@ $categories = $res->fetchAll();
     </div>
 </div>
 <?php
-// require 'includes/footer.php';
+
+require 'includes/footer.php';
