@@ -46,12 +46,6 @@ if (isset($_GET['s'])) {
                         </span>
                     </div>
                 </div>
-                <!-- TRY TO ADD, "ABOUT ME" ETC !!!!! -->
-                <div class="field is-grouped">
-                    <div class="control">
-                        <button type="submit" name="submit_signup" class="button is-primary">Save changes</button>
-                    </div>
-                </div>
             </form>
         </div>
         <div class="col-2">
