@@ -225,7 +225,7 @@ function editAds($name, $content, $address, $price, $img, $author, $category, $i
             if ($sth->execute()) {
                 // FIND BETTER SPEECH !!!
                 echo "<div class='alert alert-success'> You have successfully Edited your Ad ! </div>";
-                header("Location: ad.php?id={$id}");
+                // header("Location: ad.php?id={$id}");
             }
         } catch (PDOException $e) {
             echo 'Error: '.$e->getMessage();
