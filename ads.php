@@ -19,7 +19,7 @@ if (isset($_POST['search_form'])) {
         <div class='container profile'>
 
             <!-- MAYBE USE THIS BLOCK TO GIVE CURRENTUSER THE RIGHT TO GOOGLE SPECIFIK ADS !!! -->
-            <div class="box mt-5 has-background-primary" style="border-radius: 5px">
+            <div class="box has-background-primary" style="border-radius: 5px">
                 <div class='row'>
                     <div class='column is-2-tablet user-property-count has-text-centered'>
                         <p class='subtitle is-5' style="color:green">

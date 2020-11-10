@@ -41,7 +41,7 @@
             $author = $_SESSION['id'];
 
             // EDIT AD FUNCTION
-            editAds($name, $content, $address, $price, $author, $category, $id);
+            editAds($name, $content, $address, $price, $img, $author, $category, $id);
         }
     } elseif (isset($_POST['advert_delete'])) {
         $ad = $_POST['advert_id'];

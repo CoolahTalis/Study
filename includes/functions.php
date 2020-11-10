@@ -113,7 +113,7 @@ function displayAds()
         <li class="list-group-item"><span style="font-weight:700">Description : </span>
             <?php echo $advert['content']; ?>
         </li>
-        <li class="list-group-item"><span style="font-weight:700">Price : </span> <?php echo $advert['price']; ?>
+        <li class="list-group-item"><span style="font-weight:700">Price per person : </span> <?php echo $advert['price']; ?>
             €</li>
         <li class="list-group-item"><span style="font-weight:700">Localization : </span> <?php echo $advert['address']; ?>
         </li>
@@ -183,7 +183,7 @@ function addAds($name, $content, $address, $price, $img, $author, $category)
 }
 
 // EDIT AD FUNCTION ..
-function editAds($name, $content, $address, $price, $author, $category, $id)
+function editAds($name, $content, $address, $price, $img, $author, $category, $id)
 {
     global $conn;
     // CHECK PRICE (MUST BE INT & BELOW 1m €/$) ..
@@ -191,14 +191,35 @@ function editAds($name, $content, $address, $price, $author, $category, $id)
         // USE OF TRY/CATCH TO CAPTURE SQL/PDO ERRORS ..
         try {
             // CREATE QUERY W/ ALL FORMS FIELDS SPECIFIED .. NOT SURE ........
-            $sth = $conn->prepare('UPDATE adverts SET ad_name = :ad_name, content = :content, address = :address , price = :price, category_id=:category_id WHERE author_id = :author_id AND ad_id = :ad_id');
-            $sth->bindValue(':ad_name', $name);
-            $sth->bindValue(':content', $content);
-            $sth->bindValue(':price', $price);
-            $sth->bindValue(':address', $address);
-            $sth->bindValue(':author_id', $author);
-            $sth->bindValue(':category_id', $category);
-            $sth->bindValue(':ad_id', $id);
+            $sth = $conn->prepare('UPDATE adverts SET ad_name = :ad_name, content = :content, address = :address , price = :price, images = :images, category_id = :category_id WHERE author_id = :author_id AND ad_id = :ad_id');
+            $sth->bindValue(':ad_name', $name, PDO::PARAM_STR);
+            $sth->bindValue(':content', $content, PDO::PARAM_STR);
+            $sth->bindValue(':price', $price, PDO::PARAM_INT);
+            $sth->bindValue(':address', $address, PDO::PARAM_STR);
+            $sth->bindValue(':author_id', $author, PDO::PARAM_INT);
+            $sth->bindValue(':category_id', $category, PDO::PARAM_INT);
+            $sth->bindValue(':ad_id', $id, PDO::PARAM_INT);
+
+            if (isset($_FILES['advert_images'])) {
+                $file = $_FILES['advert_images'];
+                if ($file['size'] <= 1000000) {
+                    $valid_ext = ['jpg', 'jpeg', 'gif', 'png'];
+                    $check_ext = strtolower(substr(strrchr($file['name'], '.'), 1));
+                    if (in_array($check_ext, $valid_ext)) {
+                        $dbname = uniqid().'_'.$file['name'];
+                        $upload_dir = 'imgupload/';
+                        $upload_name = $upload_dir.$dbname;
+                        $move_result = move_uploaded_file($file['tmp_name'], $upload_name);
+                        $img = $dbname;
+                        echo '<div class="alert alert-success mt-2" role="alert" > You have Succesfully Upload your Image !</div>';
+                    } else {
+                        // TEMP SPEECH FIND BETTER !!!
+                        $img = '';
+                        echo '<div class="alert alert-success mt-2" role="alert" > Upload Image Fail, please check the extension / size !</div>';
+                    }
+                }
+            }
+            $sth->bindValue(':images', $img, PDO::PARAM_STR);
 
             // DISPLAY MSG IF SUCCESS ..
             if ($sth->execute()) {
@@ -238,14 +259,14 @@ function displayAd($id)
         </li>
         <li class="list-group-item"><span style="font-weight:700">Description : </span> <?php echo $advert['content']; ?>
         </li>
-        <li class="list-group-item"><span style="font-weight:700">Price : </span> <?php echo $advert['price']; ?>
+        <li class="list-group-item"><span style="font-weight:700">Price per person : </span> <?php echo $advert['price']; ?>
             €</li>
         <li class="list-group-item"><span style="font-weight:700">Localization : </span> <?php echo $advert['address']; ?>
         </li>
     </ul>
     <!-- CUSTOMER BTN MODE  -->
     <footer class='card-footer'>
-        <a href="profil.php" class='card-footer-item'>Contact</a>
+        <a href="profil.php" class='card-footer-item tag is-dark is-size-4'>Contact</a>
     </footer>
 </div>
 
@@ -280,7 +301,7 @@ function displayAdsByUser($author_id)
         </li>
         <li class="list-group-item"><span style="font-weight:700">Description : </span> <?php echo $advert['content']; ?>
         </li>
-        <li class="list-group-item"><span style="font-weight:700">Price : </span> <?php echo $advert['price']; ?>
+        <li class="list-group-item"><span style="font-weight:700">Price per person : </span> <?php echo $advert['price']; ?>
             €</li>
         <li class="list-group-item"><span style="font-weight:700">Localization : </span> <?php echo $advert['address']; ?>
         </li>

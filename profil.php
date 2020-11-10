@@ -17,6 +17,7 @@ if (isset($_GET['s'])) {
 
 
 <div class="container-fluid" style="padding: 165px ; background:url('assets/images/appt1.jpg'); background-size: cover">
+    <label class="label column is-12 is-size-3-desktop"> My profil infos</label>
     <div class="columns">
 
         <!-- ADD ADS FORM .. TEST BULMA COL AND SHIT AND UPDATE NAME FOR BDD AND FUNCTIONS, BETTER DESIGN & INPUT NAME !!! -->
@@ -54,8 +55,8 @@ if (isset($_GET['s'])) {
             </form>
         </div>
         <div class="col-2">
-            <button type="button" class="button is-primary" id="openModal">
-                Check My Ads
+            <button type="button" class="button is-primary mb-2" id="openModal">
+                Check My Adverts
             </button>
         </div>
     </div>

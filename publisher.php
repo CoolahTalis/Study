@@ -10,9 +10,12 @@ $categories = $res->fetchAll();
 
 <div class="container-fluid"
     style="padding: 50px 0; background:url('assets/images/addadsbg.jpg'); background-size: cover">
-    <div class="columns">
+    <label class="label column is-8 offset-2 is-size-3-desktop is-size-5-mobile is-centered-mobile">
+        Adverts Publisher</label>
+    <div class="columns is-centered">
         <!-- ADD ADS FORM .. TEST BULMA COL AND SHIT AND UPDATE NAME FOR BDD AND FUNCTIONS !!! -->
-        <div class="is-offset-1 column is-6 mb-5" style="background: rgba(255, 255, 255, 0.5); border-radius:10px">
+        <div class="is-offset-1 column is-8 mb-5 mx-5"
+            style="background: rgba(255, 255, 255, 0.5); border-radius: 10px;">
             <form action="process.php" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="label" for=InputName> Your Booking Title</label>
@@ -72,7 +75,7 @@ $categories = $res->fetchAll();
                 </div>
                 <!-- PRICE -->
                 <div class="form-group">
-                    <label class="label" for="InputPrice">Price</label>
+                    <label class="label" for="InputPrice">Price per person</label>
                     <div class="control has-icons-left has-icons-right">
                         <input class="input is-danger" type="number" placeholder="Enter your Price" value=""
                             name="advert_price" id="InputPrice" max="999999" required>
@@ -82,10 +85,13 @@ $categories = $res->fetchAll();
                     </div>
                 </div>
 
-                <!-- DON'T FORGET THE UPLOAD IMAGE FIELD !!! -->
-                <label class="label" for="InputImg">Your Booking Pictures</label>
-                <!-- FIX LANG UPLOAD BTN !!! -->
-                <input type="file" value="Choose an image" name="advert_images" id="InputImg" class="">
+                <!-- DON'T FORGET THE UPLOAD IMAGE FIELD AND REMOVE BASIC CSS TO MAKE IT SCSS !!! -->
+                <label class="label " for="InputImg"><span class="has-background-primary has-text-white"
+                        style="border-radius:5px; padding:5px; cursor: pointer">Choose your
+                        Picture</span>
+                </label>
+                <!-- FIX LANG UPLOAD BTN, VALUE="" IS USELESS, EVEN IS-TRANSPARENT !!! -->
+                <input type="file" name="advert_images" id="InputImg" style="display:none">
                 <!-- SUBMIT FORM BTN -->
                 <div class="field is-grouped">
                     <div class="control mt-3">

@@ -38,8 +38,7 @@ $categories = $res2->fetchAll();
                         <div class="field">
                             <div class="control">
                                 <textarea class="textarea is-danger" id="InputContent" name="advert_content"
-                                    value="<?php echo $advert['content']; ?>"
-                                    required></textarea>
+                                    required><?php echo $advert['content']; ?></textarea>
                             </div>
                         </div>
                         <span class=" icon is-small is-right">
@@ -84,7 +83,7 @@ $categories = $res2->fetchAll();
                 </div>
                 <!-- PRICE -->
                 <div class="form-group">
-                    <label class="label" for="InputPrice">Price</label>
+                    <label class="label" for="InputPrice">Price per person</label>
                     <div class="control has-icons-left has-icons-right">
                         <input class="input is-danger" type="number" name="advert_price" id="InputPrice" max="999999"
                             value="<?php echo $advert['price']; ?>"
@@ -95,7 +94,7 @@ $categories = $res2->fetchAll();
                     </div>
                 </div>
 
-                <!-- DON'T FORGET THE UPLOAD IMAGE FIELD !!! -->
+                <!-- FIND SOLUTION PERSISTENCE IMG  !!! -->
                 <label class="label" for="InputImg">Your Booking Pictures</label>
                 <!-- FIX LANG UPLOAD BTN !!! -->
                 <input type="file" value="Choose an image" name="advert_images" id="InputImg"
