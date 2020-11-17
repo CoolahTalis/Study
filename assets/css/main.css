@@ -422,8 +422,11 @@ table th {
   .is-size-6-mobile {
     font-size: 1rem !important; }
   .is-size-7-mobile {
-    font-size: 0.75rem !important; } }
-
+    font-size: 0.75rem !important; } 
+.signin {
+  margin-bottom: 10px;
+}
+}
 @media screen and (min-width: 769px), print {
   .is-size-1-tablet {
     font-size: 3rem !important; }
@@ -5425,7 +5428,7 @@ label.panel-block {
   flex-basis: 0;
   flex-grow: 1;
   flex-shrink: 1;
-  padding: 0.75rem; }
+  padding: 1.75rem; }
   .columns.is-mobile > .column.is-narrow {
     flex: none; }
   .columns.is-mobile > .column.is-full {

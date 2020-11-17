@@ -30,7 +30,7 @@ if (isset($_POST['submit_signup']) && !empty($_POST['email_signup']) && !empty($
     style="padding: 160px 0; background:url('assets/images/signbg.jpg'); background-size: cover">
     <div class="columns">
         <!-- REGISTER FORM, FIND WAY FOR BETTER DISPLAY OF BOTH !!! -->
-        <div class="is-offset-1 column is-5"
+        <div class="is-offset-1 column is-5 is-size-5-mobile signin"
             style="background: rgba(255, 255, 255, 0.5); border-radius:10px; border-right: 5px solid black">
             <form
                 action="<?php $_SERVER['REQUEST_URI']; ?>"
