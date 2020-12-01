@@ -342,3 +342,8 @@ function deleteAds($ad, $author)
         echo 'Error: '.$e->getMessage();
     }
 }
+
+// SENDMAIL FUNCTION 
+function sendmail() {
+    
+}
